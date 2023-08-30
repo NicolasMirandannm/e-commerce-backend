@@ -1,7 +1,7 @@
 package ecommerce.shared.valueObject;
 
 public abstract class ValueObject<T> {
-    protected T value;
+    private final T value;
 
     public ValueObject(T value) {
         this.value = value;

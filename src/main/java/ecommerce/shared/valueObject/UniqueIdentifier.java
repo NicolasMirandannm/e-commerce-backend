@@ -1,5 +1,8 @@
 package ecommerce.shared.valueObject;
 
+import ecommerce.commun.exceptions.UniqueIdentifierException;
+
+import java.time.temporal.ValueRange;
 import java.util.UUID;
 
 public class UniqueIdentifier extends ValueObject<String> {
@@ -8,10 +11,16 @@ public class UniqueIdentifier extends ValueObject<String> {
     }
 
     public static UniqueIdentifier create(String id) {
-        return null;
+        if (id == null) throw new UniqueIdentifierException("Identificador vazio!");
+
+        try {
+            return new UniqueIdentifier(UUID.fromString(id).toString());
+        } catch (IllegalArgumentException ex) {
+            throw new UniqueIdentifierException("Identificador inválido!");
+        }
     }
 
     public static UniqueIdentifier create() {
-        return null;
+        return new UniqueIdentifier(UUID.randomUUID().toString());
     }
 }
